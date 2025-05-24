@@ -18,13 +18,16 @@ local Window = Library.CreateLib("UHH | Made by 1nf", "DarkTheme")
 local Player_T = Window:NewTab("Player")
 
 local S_Health_Player = Player_T:NewSection("Health")
-
-S_Health_Player:NewSlider("Health", "Modify player current health", humanoid.MaxHealth, 0, function(s)
-    if player.Character and player.Character:FindFirstChild("Humanoid") then
-        player.Character.Humanoid.Health = s
+S_Player_Health:NewTextBox("Set Health", "Enter a number to set health", function(txt)
+    local value = tonumber(txt)
+    if value then
+        if player.Character and player.Character:FindFirstChild("Humanoid") then
+            player.Character.Humanoid.Health = value
+        end
+    else
+        warn("Not a number")
     end
 end)
-
 S_Health_Player:NewToggle("God mode", "A toggle that makes you immortal (not at all)", function(state)
     godMode = state
     spawn(function()
@@ -36,3 +39,4 @@ S_Health_Player:NewToggle("God mode", "A toggle that makes you immortal (not at 
         end
     end)
 end)
+local S_Other_Player = Player_T:NewSection("Other")
