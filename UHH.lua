@@ -7,6 +7,9 @@ end
 local player = game.Players.LocalPlayer
 local godMode = false
 
+repeat wait() until player.Character and player.Character:FindFirstChild("Humanoid")
+local humanoid = player.Character:FindFirstChild("Humanoid")
+
 -- Setup Window
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
 local Window = Library.CreateLib("UHH | Made by 1nf", "DarkTheme")
@@ -15,11 +18,13 @@ local Window = Library.CreateLib("UHH | Made by 1nf", "DarkTheme")
 local Player_T = Window:NewTab("Player")
 
 local S_Health_Player = Player_T:NewSection("Health")
-S_Health_Player:NewSlider("Health", "Modify player current health", player.Character.Humanoid.MaxHealth, 0, function(s)
+
+S_Health_Player:NewSlider("Health", "Modify player current health", humanoid.MaxHealth, 0, function(s)
     if player.Character and player.Character:FindFirstChild("Humanoid") then
         player.Character.Humanoid.Health = s
     end
 end)
+
 S_Health_Player:NewToggle("God mode", "A toggle that makes you immortal (not at all)", function(state)
     godMode = state
     spawn(function()
